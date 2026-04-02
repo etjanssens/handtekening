@@ -67,9 +67,10 @@
       align-items: start;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       main { grid-template-columns: 1fr; }
       header { padding: 16px 20px; }
+      main { margin: 16px auto; }
     }
 
     .card {
@@ -249,25 +250,31 @@
 
     <div class="field">
       <label>Naam</label>
-      <input type="text" id="f-naam" placeholder="Jesse Jansen" oninput="update()">
+      <input type="text" id="f-naam" placeholder="Voornaam Achternaam" oninput="update()">
     </div>
 
     <div class="field">
-      <label>Voornaamwoorden</label>
+      <label>PROnouns <span style="font-weight:400;color:#888;font-size:12px;">(optioneel)</span></label>
       <div class="radio-group">
-        <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
-        <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
-        <label class="radio-row"><input type="radio" name="pronoun" value="geen" onchange="update()"> geen voorkeur</label>
-        <label class="radio-row">
-          <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
-          <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="diens/hen" oninput="update()">
-        </label>
+        <label class="radio-row"><input type="radio" name="pronoun_toggle" value="nee" onchange="togglePronouns()" checked> nee, liever niet</label>
+        <label class="radio-row"><input type="radio" name="pronoun_toggle" value="ja" onchange="togglePronouns()"> ja, namelijk</label>
+      </div>
+      <div id="pronoun-options" style="display:none; margin-top:10px; padding-left:4px;">
+        <div class="radio-group">
+          <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
+          <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
+          <label class="radio-row"><input type="radio" name="pronoun" value="die/diens" onchange="update()"> die/diens</label>
+          <label class="radio-row">
+            <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
+            <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="hen/hun" oninput="update()">
+          </label>
+        </div>
       </div>
     </div>
 
     <div class="field">
       <label>Functie</label>
-      <input type="text" id="f-functie" placeholder="Bestuurs- en verenigingssecretaris" oninput="update()">
+      <input type="text" id="f-functie" placeholder="Jouw functie" oninput="update()">
     </div>
 
     <div class="field">
@@ -291,7 +298,7 @@
 
     <div class="field">
       <label>E-mailadres</label>
-      <input type="email" id="f-email" placeholder="jesse@progressiefnederland.nl" oninput="update()">
+      <input type="email" id="f-email" placeholder="naam@progressiefnederland.nl" oninput="update()">
     </div>
 
   </div>
@@ -304,11 +311,11 @@
       <div id="sig-output">
         <table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:520px;">
           <tr>
-            <td style="vertical-align:middle;padding-right:16px;width:68px;">
-              <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" width="60" height="60" style="display:block;width:60px;height:60px;object-fit:contain;" alt="Progressief Nederland">
+            <td style="vertical-align:middle;padding-right:16px;width:108px;">
+              <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" width="100" height="100" style="display:block;width:100px;height:100px;object-fit:contain;" alt="Progressief Nederland">
             </td>
             <td style="vertical-align:middle;">
-              <p id="p-naam" style="margin:0 0 2px;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:Arial,sans-serif;">Jesse Jansen</p>
+              <p id="p-naam" style="margin:0 0 2px;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:Arial,sans-serif;">Voornaam Achternaam</p>
               <p id="p-pronoun" style="margin:0 0 3px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;"></p>
               <p id="p-functie" style="margin:0 0 2px;font-size:11px;font-weight:bold;color:#00AA00;text-transform:uppercase;letter-spacing:0.5px;font-family:Arial,sans-serif;">Bestuurs- en verenigingssecretaris</p>
               <p id="p-locatie" style="margin:0 0 8px;font-size:11px;color:#888888;font-family:Arial,sans-serif;"></p>
@@ -320,11 +327,11 @@
               <div style="border-top:1px solid #e0e0e0;padding-top:8px;">
                 <p style="margin:0 0 5px;font-size:11px;color:#888888;font-family:Arial,sans-serif;">Volg ons op sociale media</p>
                 <table cellpadding="0" cellspacing="0" border="0"><tr>
-                  <td style="padding-right:5px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#C13584;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
-                  <td style="padding-right:5px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#010101;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
-                  <td style="padding-right:5px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#0A66C2;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
-                  <td style="padding-right:10px;"><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#0085FF;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
-                  <td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 10px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">&#9993; Meld je aan voor updates</a></td>
+                  <td style="padding-right:5px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
+                  <td style="padding-right:5px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
+                  <td style="padding-right:5px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
+                  <td style="padding-right:10px;"><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
+                  <td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 10px;border-radius:4px;background-color:#FF0000;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a></td>
                 </tr></table>
               </div>
             </td>
@@ -363,15 +370,23 @@
     return el ? el.value : '';
   }
 
+  function togglePronouns() {
+    var toggle = getRadio('pronoun_toggle');
+    document.getElementById('pronoun-options').style.display = toggle === 'ja' ? '' : 'none';
+    if (toggle === 'nee') {
+      document.querySelectorAll('input[name="pronoun"]').forEach(function(el) { el.checked = false; });
+    }
+    update();
+  }
+
   function update() {
-    var naam = getVal('f-naam') || 'Jesse Jansen';
-    var functie = getVal('f-functie') || 'Bestuurs- en verenigingssecretaris';
+    var naam = getVal('f-naam') || 'Voornaam Achternaam';
+    var functie = getVal('f-functie') || 'Jouw functie';
     var tel = getVal('f-tel');
     var email = getVal('f-email');
 
-    var pronoun = getRadio('pronoun');
+    var pronoun = getRadio('pronoun_toggle') === 'ja' ? getRadio('pronoun') : '';
     if (pronoun === 'anders') pronoun = getVal('f-pronoun-anders');
-    if (pronoun === 'geen') pronoun = '';
 
     var locatie = getRadio('locatie');
     if (locatie === 'anders') locatie = getVal('f-locatie-anders');
