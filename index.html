@@ -23,6 +23,7 @@
 
     html, body {
       overflow-x: hidden;
+      width: 100%;
     }
 
     body {
@@ -72,9 +73,14 @@
     }
 
     @media (max-width: 760px) {
-      main { grid-template-columns: 1fr; margin: 16px auto; padding: 0 12px; }
+      main { grid-template-columns: 1fr; margin: 16px auto; padding: 0 12px; width: 100%; }
       header { padding: 16px 12px; }
       .card { padding: 16px; }
+      #sig-output { overflow-x: auto; max-width: calc(100vw - 64px); }
+      #sig-output table { max-width: 100%; }
+      .field input[type=text],
+      .field input[type=email],
+      .field input[type=tel] { max-width: 100%; }
     }
 
     .card {
@@ -131,6 +137,7 @@
     .radio-row {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       font-size: 14px;
       color: var(--text);
