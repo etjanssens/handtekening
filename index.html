@@ -21,6 +21,10 @@
       --font: 'DM Sans', system-ui, sans-serif;
     }
 
+    html, body {
+      overflow-x: hidden;
+    }
+
     body {
       font-family: var(--font);
       background: var(--gray);
@@ -68,9 +72,9 @@
     }
 
     @media (max-width: 760px) {
-      main { grid-template-columns: 1fr; }
-      header { padding: 16px 20px; }
-      main { margin: 16px auto; }
+      main { grid-template-columns: 1fr; margin: 16px auto; padding: 0 12px; }
+      header { padding: 16px 12px; }
+      .card { padding: 16px; }
     }
 
     .card {
