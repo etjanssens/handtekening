@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handtekening generator — Progressief Nederland</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00AA00;
+      --green-light: #e8f8e8;
+      --pink: #FFAACC;
+      --pink-dark: #8B003A;
+      --gray: #f5f5f3;
+      --border: #e2e2de;
+      --text: #1a1a1a;
+      --muted: #888888;
+      --radius: 10px;
+      --font: 'DM Sans', system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--gray);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    header img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      main { grid-template-columns: 1fr; }
+      header { padding: 16px 20px; }
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .field input[type=text],
+    .field input[type=email],
+    .field input[type=tel] {
+      width: 100%;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .field input[type=text]:focus,
+    .field input[type=email]:focus,
+    .field input[type=tel]:focus {
+      border-color: var(--green);
+    }
+
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+
+    .radio-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .radio-row input[type=radio] {
+      accent-color: var(--green);
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .anders-input {
+      height: 30px;
+      padding: 0 8px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: var(--font);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      width: 140px;
+      margin-left: 4px;
+      transition: border-color 0.15s;
+    }
+
+    .anders-input:focus { border-color: var(--green); }
+
+    .preview-col { display: flex; flex-direction: column; gap: 16px; }
+
+    .preview-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .preview-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 20px;
+      background: var(--green);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .copy-btn:hover { background: #009000; }
+    .copy-btn:active { transform: scale(0.98); }
+
+    .copy-btn.success {
+      background: #555;
+    }
+
+    .instructions {
+      background: var(--green-light);
+      border: 1px solid #b8e6b8;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #1a4d1a;
+      line-height: 1.6;
+    }
+
+    .instructions strong {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .instructions ol {
+      padding-left: 18px;
+    }
+
+    .instructions ol li {
+      margin-bottom: 3px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" alt="Progressief Nederland">
+  <div>
+    <h1>Handtekening generator</h1>
+    <p>Progressief Nederland</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="card">
+    <div class="card-title">Jouw gegevens</div>
+
+    <div class="field">
+      <label>Naam</label>
+      <input type="text" id="f-naam" placeholder="Jesse Jansen" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Voornaamwoorden</label>
+      <div class="radio-group">
+        <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
+        <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
+        <label class="radio-row"><input type="radio" name="pronoun" value="geen" onchange="update()"> geen voorkeur</label>
+        <label class="radio-row">
+          <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
+          <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="diens/hen" oninput="update()">
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Functie</label>
+      <input type="text" id="f-functie" placeholder="Bestuurs- en verenigingssecretaris" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Locatie</label>
+      <div class="radio-group">
+        <label class="radio-row"><input type="radio" name="locatie" value="Partijbureau" onchange="update()"> Partijbureau</label>
+        <label class="radio-row"><input type="radio" name="locatie" value="Tweede Kamer" onchange="update()"> Tweede Kamer</label>
+        <label class="radio-row"><input type="radio" name="locatie" value="Eerste Kamer" onchange="update()"> Eerste Kamer</label>
+        <label class="radio-row"><input type="radio" name="locatie" value="Europees Parlement" onchange="update()"> Europees Parlement</label>
+        <label class="radio-row">
+          <input type="radio" name="locatie" value="anders" onchange="update()"> anders, namelijk
+          <input type="text" class="anders-input" id="f-locatie-anders" placeholder="Gemeenteraad" oninput="update()">
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Telefoonnummer</label>
+      <input type="tel" id="f-tel" placeholder="+31 6 12 34 56 78" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>E-mailadres</label>
+      <input type="email" id="f-email" placeholder="jesse@progressiefnederland.nl" oninput="update()">
+    </div>
+
+  </div>
+
+  <div class="preview-col">
+
+    <div class="preview-label">Voorbeeld</div>
+
+    <div class="preview-box">
+      <div id="sig-output">
+        <table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:520px;">
+          <tr>
+            <td style="vertical-align:middle;padding-right:16px;width:68px;">
+              <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" width="60" height="60" style="display:block;width:60px;height:60px;object-fit:contain;" alt="Progressief Nederland">
+            </td>
+            <td style="vertical-align:middle;">
+              <p id="p-naam" style="margin:0 0 2px;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:Arial,sans-serif;">Jesse Jansen</p>
+              <p id="p-pronoun" style="margin:0 0 3px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;"></p>
+              <p id="p-functie" style="margin:0 0 2px;font-size:11px;font-weight:bold;color:#00AA00;text-transform:uppercase;letter-spacing:0.5px;font-family:Arial,sans-serif;">Bestuurs- en verenigingssecretaris</p>
+              <p id="p-locatie" style="margin:0 0 8px;font-size:11px;color:#888888;font-family:Arial,sans-serif;"></p>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:10px;">
+                <tbody id="p-contact-rows">
+                  <tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>
+                </tbody>
+              </table>
+              <div style="border-top:1px solid #e0e0e0;padding-top:8px;">
+                <p style="margin:0 0 5px;font-size:11px;color:#888888;font-family:Arial,sans-serif;">Volg ons op sociale media</p>
+                <table cellpadding="0" cellspacing="0" border="0"><tr>
+                  <td style="padding-right:5px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#C13584;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
+                  <td style="padding-right:5px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#010101;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
+                  <td style="padding-right:5px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#0A66C2;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
+                  <td style="padding-right:10px;"><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#0085FF;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
+                  <td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 10px;border-radius:4px;background-color:#FFAACC;color:#8B003A;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">&#9993; Meld je aan voor updates</a></td>
+                </tr></table>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <button class="copy-btn" id="copy-btn" onclick="copySignature()">
+      Handtekening kopiëren
+    </button>
+
+    <div class="instructions">
+      <strong>Hoe instellen in Outlook</strong>
+      <ol>
+        <li>Klik op "Handtekening kopiëren"</li>
+        <li>Open Outlook → Bestand → Opties → E-mail → Handtekeningen</li>
+        <li>Maak een nieuwe handtekening aan</li>
+        <li>Klik in het tekstvak en plak (Ctrl+V)</li>
+        <li>Sla op en klaar!</li>
+      </ol>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Progressief Nederland &mdash; handtekening generator
+</footer>
+
+<script>
+  function getVal(id) { return (document.getElementById(id) || {}).value || ''; }
+  function getRadio(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function update() {
+    var naam = getVal('f-naam') || 'Jesse Jansen';
+    var functie = getVal('f-functie') || 'Bestuurs- en verenigingssecretaris';
+    var tel = getVal('f-tel');
+    var email = getVal('f-email');
+
+    var pronoun = getRadio('pronoun');
+    if (pronoun === 'anders') pronoun = getVal('f-pronoun-anders');
+    if (pronoun === 'geen') pronoun = '';
+
+    var locatie = getRadio('locatie');
+    if (locatie === 'anders') locatie = getVal('f-locatie-anders');
+
+    document.getElementById('p-naam').textContent = naam;
+    document.getElementById('p-functie').textContent = functie;
+
+    var pPronoun = document.getElementById('p-pronoun');
+    pPronoun.textContent = pronoun;
+    pPronoun.style.display = pronoun ? '' : 'none';
+
+    var pLocatie = document.getElementById('p-locatie');
+    pLocatie.textContent = locatie;
+    pLocatie.style.display = locatie ? '' : 'none';
+
+    var contactRows = '';
+    if (tel) contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;white-space:nowrap;">Tel</td><td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;">' + escHtml(tel) + '</td></tr>';
+    if (email) contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Mail</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="mailto:' + escHtml(email) + '" style="color:#00AA00;text-decoration:none;">' + escHtml(email) + '</a></td></tr>';
+    contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>';
+    document.getElementById('p-contact-rows').innerHTML = contactRows;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function copySignature() {
+    var el = document.getElementById('sig-output');
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+
+    var success = false;
+    try {
+      success = document.execCommand('copy');
+    } catch(e) {}
+    sel.removeAllRanges();
+
+    var btn = document.getElementById('copy-btn');
+    if (success) {
+      btn.textContent = 'Gekopieerd!';
+      btn.classList.add('success');
+      setTimeout(function() {
+        btn.textContent = 'Handtekening kopiëren';
+        btn.classList.remove('success');
+      }, 2500);
+    } else {
+      btn.textContent = 'Selecteer handmatig en kopieer';
+      setTimeout(function() {
+        btn.textContent = 'Handtekening kopiëren';
+      }, 3000);
+    }
+  }
+
+  update();
+</script>
+
+</body>
+</html>
