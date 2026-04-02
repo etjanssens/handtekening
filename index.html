@@ -4,125 +4,129 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Handtekening generator — Progressief Nederland</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --green: #00AA00;
-      --green-light: #e8f8e8;
+      --red: #FF0000;
       --pink: #FFAACC;
       --pink-dark: #8B003A;
-      --gray: #f5f5f3;
-      --border: #e2e2de;
-      --text: #1a1a1a;
-      --muted: #888888;
-      --radius: 10px;
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --border: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.45);
+      --radius: 12px;
+      --font-display: 'Syne', sans-serif;
       --font: 'DM Sans', system-ui, sans-serif;
     }
 
-    html, body {
-      overflow-x: hidden;
-      width: 100%;
-    }
+    html, body { overflow-x: hidden; width: 100%; }
 
     body {
       font-family: var(--font);
-      background: var(--gray);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 0;
     }
 
     header {
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      padding: 16px 32px;
+      padding: 0 32px;
+      height: 64px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 10;
     }
 
-    header img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+
+    header img { width: 36px; height: 36px; object-fit: contain; }
 
     header h1 {
-      font-size: 16px;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
       color: var(--text);
-      letter-spacing: -0.2px;
+      letter-spacing: -0.3px;
     }
 
-    header p {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 1px;
+    .header-badge {
+      font-size: 11px;
+      font-weight: 500;
+      background: var(--green);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
     }
 
     main {
-      max-width: 900px;
-      margin: 32px auto;
+      max-width: 960px;
+      margin: 40px auto;
       padding: 0 24px;
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 24px;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
       align-items: start;
     }
 
-    @media (max-width: 760px) {
-      main { grid-template-columns: 1fr; margin: 16px auto; padding: 0 12px; width: 100%; }
-      header { padding: 16px 12px; }
-      .card { padding: 16px; }
-      #sig-output { overflow-x: auto; max-width: calc(100vw - 64px); }
-      #sig-output table { max-width: 100%; }
-      .field input[type=text],
-      .field input[type=email],
-      .field input[type=tel] { max-width: 100%; }
+    @media (max-width: 780px) {
+      main { grid-template-columns: 1fr; margin: 20px auto; padding: 0 12px; width: 100%; }
+      header { padding: 0 16px; }
     }
 
     .card {
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 28px;
     }
 
     .card-title {
-      font-size: 13px;
+      font-family: var(--font-display);
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
-    .field { margin-bottom: 16px; }
+    .field { margin-bottom: 18px; }
     .field:last-child { margin-bottom: 0; }
 
     .field label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      color: var(--text);
-      margin-bottom: 6px;
+      color: var(--muted);
+      margin-bottom: 7px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
     .field input[type=text],
     .field input[type=email],
     .field input[type=tel] {
       width: 100%;
-      height: 38px;
-      padding: 0 12px;
+      height: 42px;
+      padding: 0 14px;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: var(--font);
       font-size: 14px;
       color: var(--text);
-      background: #fff;
-      transition: border-color 0.15s;
+      background: var(--surface2);
+      transition: border-color 0.15s, background 0.15s;
       outline: none;
     }
 
@@ -130,9 +134,12 @@
     .field input[type=email]:focus,
     .field input[type=tel]:focus {
       border-color: var(--green);
+      background: #1f2e1f;
     }
 
-    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .field input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .radio-group { display: flex; flex-direction: column; gap: 6px; }
 
     .radio-row {
       display: flex;
@@ -140,9 +147,15 @@
       flex-wrap: wrap;
       gap: 8px;
       font-size: 14px;
-      color: var(--text);
+      color: rgba(255,255,255,0.75);
       cursor: pointer;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: background 0.12s, border-color 0.12s;
     }
+
+    .radio-row:hover { background: var(--surface2); }
 
     .radio-row input[type=radio] {
       accent-color: var(--green);
@@ -152,14 +165,25 @@
       cursor: pointer;
     }
 
+    .radio-row input[type=radio]:checked + * { color: #fff; }
+
+    .pronoun-sub {
+      margin-top: 8px;
+      padding: 12px;
+      background: var(--surface2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
     .anders-input {
       height: 30px;
       padding: 0 8px;
       border: 1px solid var(--border);
-      border-radius: 5px;
+      border-radius: 6px;
       font-family: var(--font);
       font-size: 13px;
       color: var(--text);
+      background: var(--surface);
       outline: none;
       width: 120px;
       max-width: 35vw;
@@ -168,92 +192,103 @@
     }
 
     .anders-input:focus { border-color: var(--green); }
+    .anders-input::placeholder { color: rgba(255,255,255,0.2); }
 
-    .preview-col { display: flex; flex-direction: column; gap: 16px; }
+    .preview-col { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 84px; }
 
     .preview-label {
-      font-size: 13px;
+      font-family: var(--font-display);
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       color: var(--muted);
     }
 
     .preview-box {
-      background: #fff;
-      border: 1px solid var(--border);
+      background: #ffffff;
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 24px;
       overflow-x: auto;
     }
 
     .copy-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      height: 42px;
+      height: 48px;
       padding: 0 20px;
       background: var(--green);
       color: #fff;
-      font-family: var(--font);
+      font-family: var(--font-display);
       font-size: 14px;
       font-weight: 700;
+      letter-spacing: 0.02em;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.15s, transform 0.1s;
       width: 100%;
-      justify-content: center;
     }
 
     .copy-btn:hover { background: #009000; }
     .copy-btn:active { transform: scale(0.98); }
-
-    .copy-btn.success {
-      background: #555;
-    }
+    .copy-btn.success { background: #333; }
 
     .instructions {
-      background: var(--green-light);
-      border: 1px solid #b8e6b8;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
       border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 18px 20px;
       font-size: 13px;
-      color: #1a4d1a;
-      line-height: 1.6;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
     }
 
     .instructions strong {
       display: block;
+      font-family: var(--font-display);
       font-weight: 700;
-      margin-bottom: 6px;
-      font-size: 13px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
     }
 
-    .instructions ol {
-      padding-left: 18px;
-    }
-
-    .instructions ol li {
-      margin-bottom: 3px;
-    }
+    .instructions ol { padding-left: 18px; }
+    .instructions ol li { margin-bottom: 4px; }
 
     footer {
       text-align: center;
-      padding: 32px 24px;
+      padding: 40px 24px;
       font-size: 12px;
       color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 780px) {
+      .card { padding: 20px; }
+      .preview-col { position: static; }
+      #sig-output { overflow-x: auto; max-width: calc(100vw - 64px); }
+      #sig-output table { max-width: 100%; }
+      .field input[type=text],
+      .field input[type=email],
+      .field input[type=tel] { max-width: 100%; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" alt="Progressief Nederland">
-  <div>
+  <div class="header-left">
+    <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" alt="Progressief Nederland">
     <h1>Handtekening generator</h1>
-    <p>Progressief Nederland</p>
   </div>
+  <span class="header-badge">Progressief Nederland</span>
 </header>
 
 <main>
@@ -267,20 +302,22 @@
     </div>
 
     <div class="field">
-      <label>PROnouns <span style="font-weight:400;color:#888;font-size:12px;">(optioneel)</span></label>
+      <label>PROnouns <span style="font-weight:400;color:rgba(255,255,255,0.25);font-size:11px;text-transform:none;letter-spacing:0;">(optioneel)</span></label>
       <div class="radio-group">
         <label class="radio-row"><input type="radio" name="pronoun_toggle" value="nee" onchange="togglePronouns()" checked> nee, liever niet</label>
         <label class="radio-row"><input type="radio" name="pronoun_toggle" value="ja" onchange="togglePronouns()"> ja, namelijk</label>
       </div>
-      <div id="pronoun-options" style="display:none; margin-top:10px; padding-left:4px;">
-        <div class="radio-group">
-          <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
-          <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
-          <label class="radio-row"><input type="radio" name="pronoun" value="die/diens" onchange="update()"> die/diens</label>
-          <label class="radio-row">
-            <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
-            <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="hen/hun" oninput="update()">
-          </label>
+      <div id="pronoun-options" style="display:none; margin-top:8px;">
+        <div class="pronoun-sub">
+          <div class="radio-group">
+            <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
+            <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
+            <label class="radio-row"><input type="radio" name="pronoun" value="die/diens" onchange="update()"> die/diens</label>
+            <label class="radio-row">
+              <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
+              <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="hen/hun" oninput="update()">
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -320,33 +357,42 @@
 
     <div class="preview-label">Voorbeeld</div>
 
-    <div class="preview-box">
+    <div class="preview-box" style="padding:0; overflow:hidden;">
       <div id="sig-output">
         <table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:520px;">
           <tr>
-            <td style="vertical-align:middle;padding-right:16px;width:108px;">
-              <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" width="100" height="100" style="display:block;width:100px;height:100px;object-fit:contain;" alt="Progressief Nederland">
-            </td>
-            <td style="vertical-align:middle;">
-              <p id="p-naam" style="margin:0 0 2px;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:Arial,sans-serif;">Voornaam Achternaam</p>
-              <p id="p-pronoun" style="margin:0 0 3px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;"></p>
-              <p id="p-functie" style="margin:0 0 2px;font-size:11px;font-weight:bold;color:#00AA00;letter-spacing:0.5px;font-family:Arial,sans-serif;">JOUW FUNCTIE</p>
-              <p id="p-locatie" style="margin:0 0 8px;font-size:11px;color:#888888;font-family:Arial,sans-serif;"></p>
-              <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:10px;">
+            <td style="padding:16px 16px 12px;vertical-align:top;">
+              <p id="p-naam" style="margin:0 0 1px;font-size:20px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;">Voornaam Achternaam</p>
+              <p id="p-pronoun" style="margin:0 0 2px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;display:none;"></p>
+              <p id="p-functie" style="margin:0 0 1px;font-size:10px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;letter-spacing:1.5px;">JOUW FUNCTIE</p>
+              <p id="p-locatie" style="margin:0 0 10px;font-size:11px;color:#999999;font-family:Arial,sans-serif;display:none;"></p>
+              <table cellpadding="0" cellspacing="0" border="0">
                 <tbody id="p-contact-rows">
-                  <tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>
+                  <tr><td style="font-size:12px;color:#888888;padding-right:10px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>
                 </tbody>
               </table>
-              <div style="border-top:1px solid #e0e0e0;padding-top:8px;">
-                <p style="margin:0 0 5px;font-size:11px;color:#888888;font-family:Arial,sans-serif;">Volg ons op sociale media</p>
-                <table cellpadding="0" cellspacing="0" border="0"><tr>
-                  <td style="padding-right:5px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC !important;border:2px solid #FFAACC;color:#8B003A !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
-                  <td style="padding-right:5px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC !important;border:2px solid #FFAACC;color:#8B003A !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
-                  <td style="padding-right:5px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC !important;border:2px solid #FFAACC;color:#8B003A !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
-                  <td style="padding-right:10px;"><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;border-radius:4px;background-color:#FFAACC !important;border:2px solid #FFAACC;color:#8B003A !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
-                  <td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 10px;border-radius:4px;background-color:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a></td>
-                </tr></table>
-              </div>
+            </td>
+            <td style="vertical-align:middle;padding:16px;border-left:1px solid #f0f0f0;width:100px;text-align:center;">
+              <img src="https://i.ibb.co/x4FGvXG/PRO-Logo-1-1-Staand-RGB-Groen.png" width="80" height="80" style="display:block;width:80px;height:80px;object-fit:contain;" alt="Progressief Nederland">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="background-color:#FFAACC !important;padding:10px 16px;">
+              <table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                <tr>
+                  <td>
+                    <table cellpadding="0" cellspacing="0" border="0"><tr>
+                      <td style="padding-right:4px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;border-radius:3px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
+                      <td style="padding-right:4px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;border-radius:3px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
+                      <td style="padding-right:4px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;border-radius:3px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
+                      <td><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;border-radius:3px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
+                    </tr></table>
+                  </td>
+                  <td style="text-align:right;">
+                    <a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:24px;line-height:24px;padding:0 9px;border-radius:3px;background-color:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>
@@ -415,7 +461,13 @@
 
     var pLocatie = document.getElementById('p-locatie');
     pLocatie.textContent = locatie;
-    pLocatie.style.display = locatie ? '' : 'none';
+    if (locatie) {
+      pLocatie.style.display = '';
+      pLocatie.style.marginBottom = '10px';
+    } else {
+      pLocatie.style.display = 'none';
+      document.getElementById('p-functie').style.marginBottom = '10px';
+    }
 
     var contactRows = '';
     if (tel) contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;white-space:nowrap;">Tel</td><td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;">' + escHtml(tel) + '</td></tr>';
@@ -437,9 +489,7 @@
     sel.addRange(range);
 
     var success = false;
-    try {
-      success = document.execCommand('copy');
-    } catch(e) {}
+    try { success = document.execCommand('copy'); } catch(e) {}
     sel.removeAllRanges();
 
     var btn = document.getElementById('copy-btn');
@@ -452,9 +502,7 @@
       }, 2500);
     } else {
       btn.textContent = 'Selecteer handmatig en kopieer';
-      setTimeout(function() {
-        btn.textContent = 'Handtekening kopiëren';
-      }, 3000);
+      setTimeout(function() { btn.textContent = 'Handtekening kopiëren'; }, 3000);
     }
   }
 
