@@ -390,6 +390,9 @@
 
     var functieUpper = functie.toUpperCase();
 
+    var locatie = getRadio('locatie');
+    if (locatie === 'anders') locatie = getVal('f-locatie-anders');
+
     document.getElementById('p-naam').textContent = naam;
     document.getElementById('p-functie').textContent = functieUpper;
 
