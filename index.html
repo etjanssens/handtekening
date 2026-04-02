@@ -317,7 +317,7 @@
             <td style="vertical-align:middle;">
               <p id="p-naam" style="margin:0 0 2px;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:Arial,sans-serif;">Voornaam Achternaam</p>
               <p id="p-pronoun" style="margin:0 0 3px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;"></p>
-              <p id="p-functie" style="margin:0 0 2px;font-size:11px;font-weight:bold;color:#00AA00;text-transform:uppercase;letter-spacing:0.5px;font-family:Arial,sans-serif;">Bestuurs- en verenigingssecretaris</p>
+              <p id="p-functie" style="margin:0 0 2px;font-size:11px;font-weight:bold;color:#00AA00;letter-spacing:0.5px;font-family:Arial,sans-serif;">JOUW FUNCTIE</p>
               <p id="p-locatie" style="margin:0 0 8px;font-size:11px;color:#888888;font-family:Arial,sans-serif;"></p>
               <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:10px;">
                 <tbody id="p-contact-rows">
@@ -348,8 +348,8 @@
       <strong>Hoe instellen in Outlook</strong>
       <ol>
         <li>Klik op "Handtekening kopiëren"</li>
-        <li>Open Outlook → Bestand → Opties → E-mail → Handtekeningen</li>
-        <li>Maak een nieuwe handtekening aan</li>
+        <li>Open Outlook → Instellingen (tandwieltje) → Account → Handtekeningen</li>
+        <li>Klik op <strong>+ Handtekening toevoegen</strong></li>
         <li>Klik in het tekstvak en plak (Ctrl+V)</li>
         <li>Sla op en klaar!</li>
       </ol>
@@ -388,11 +388,10 @@
     var pronoun = getRadio('pronoun_toggle') === 'ja' ? getRadio('pronoun') : '';
     if (pronoun === 'anders') pronoun = getVal('f-pronoun-anders');
 
-    var locatie = getRadio('locatie');
-    if (locatie === 'anders') locatie = getVal('f-locatie-anders');
+    var functieUpper = functie.toUpperCase();
 
     document.getElementById('p-naam').textContent = naam;
-    document.getElementById('p-functie').textContent = functie;
+    document.getElementById('p-functie').textContent = functieUpper;
 
     var pPronoun = document.getElementById('p-pronoun');
     pPronoun.textContent = pronoun;
