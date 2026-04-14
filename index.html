@@ -182,17 +182,16 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
     ? '<tr><td><a href="mailto:'+esc(email)+'" style="font-size:14px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(email)+'</a></td></tr>'
     : '';
 
-  // Social icons — same for both themes now (Meeuwis uses icons in both)
-  var iconSrcs = [
-    ['https://www.instagram.com/progressiefnederland/', 'https://cdn-icons-png.flaticon.com/32/2111/2111463.png', 'Instagram'],
-    ['https://www.tiktok.com/@progressief.nederland',   'https://cdn-icons-png.flaticon.com/32/3046/3046121.png', 'TikTok'],
-    ['https://www.linkedin.com/company/progressief-nederland/', 'https://cdn-icons-png.flaticon.com/32/145/145807.png', 'LinkedIn'],
-    ['https://bsky.app/profile/progressiefned.bsky.social', 'https://cdn-icons-png.flaticon.com/32/12107/12107862.png', 'Bluesky']
+  var socials = [
+    ['https://www.instagram.com/progressiefnederland/', 'IG'],
+    ['https://www.tiktok.com/@progressief.nederland',   'TT'],
+    ['https://www.linkedin.com/company/progressief-nederland/', 'LI'],
+    ['https://bsky.app/profile/progressiefned.bsky.social', 'BS']
   ];
 
   var socialCells = '';
-  iconSrcs.forEach(function(ic) {
-    socialCells += '<td style="padding-right:4px;"><a href="'+ic[0]+'" title="'+ic[2]+'" style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#111111;text-decoration:none;"><img src="'+ic[1]+'" width="16" height="16" style="display:inline-block;vertical-align:middle;filter:brightness(0) invert(1);" alt="'+ic[2]+'"></a></td>';
+  socials.forEach(function(s) {
+    socialCells += '<td style="padding-right:4px;"><a href="'+s[0]+'" style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#111111;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">'+s[1]+'</a></td>';
   });
 
   return (
@@ -216,9 +215,7 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
 
     // RIGHT: donkere achtergrond, logo gecentreerd
     '<td style="background-color:'+bgDark+';vertical-align:middle;text-align:center;padding:20px;width:40%;">' +
-      '<div style="display:inline-block;background-color:'+bgMain+';padding:12px;">' +
-        '<img src="https://i.ibb.co/wrC8KZXG/image.png" width="100" height="100" style="display:block;width:100px;height:100px;object-fit:contain;" alt="Progressief Nederland">' +
-      '</div>' +
+      '<img src="https://i.ibb.co/wrC8KZXG/image.png" width="110" height="110" style="display:block;margin:0 auto;width:110px;height:110px;object-fit:contain;" alt="Progressief Nederland">' +
     '</td>' +
 
     '</tr>' +
