@@ -7,265 +7,48 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --green: #00AA00;
-      --red: #FF0000;
-      --pink: #FFAACC;
-      --pink-dark: #8B003A;
-      --bg: #f5f5f3;
-      --surface: #ffffff;
-      --surface2: #f5f5f3;
-      --border: #e2e2de;
-      --text: #1a1a1a;
-      --muted: #888888;
-      --radius: 10px;
-      --font: 'DM Sans', system-ui, sans-serif;
-    }
-
-    html, body { overflow-x: hidden; width: 100%; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 0 32px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      background: #fff;
-    }
-
-    .header-left { display: flex; align-items: center; gap: 12px; }
-
-    header img { width: 36px; height: 36px; object-fit: contain; }
-
-    header h1 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.2px;
-    }
-
-    .header-badge {
-      font-size: 11px;
-      font-weight: 500;
-      background: var(--green);
-      color: #fff;
-      padding: 3px 8px;
-      border-radius: 20px;
-    }
-
-    main {
-      max-width: 960px;
-      margin: 32px auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    @media (max-width: 780px) {
-      main { grid-template-columns: 1fr; margin: 20px auto; padding: 0 12px; width: 100%; }
-      header { padding: 0 16px; }
-      .card { padding: 16px; }
-      .preview-col { position: static; }
-      #sig-output { overflow-x: auto; max-width: calc(100vw - 64px); }
-      #sig-output table { max-width: 100%; }
-      .field input[type=text],
-      .field input[type=email],
-      .field input[type=tel] { max-width: 100%; }
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-
-    .card-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .field { margin-bottom: 16px; }
-    .field:last-child { margin-bottom: 0; }
-
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .field input[type=text],
-    .field input[type=email],
-    .field input[type=tel] {
-      width: 100%;
-      height: 38px;
-      padding: 0 12px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-family: var(--font);
-      font-size: 14px;
-      color: var(--text);
-      background: #fff;
-      transition: border-color 0.15s;
-      outline: none;
-    }
-
-    .field input[type=text]:focus,
-    .field input[type=email]:focus,
-    .field input[type=tel]:focus { border-color: var(--green); }
-
-    .field input::placeholder { color: #bbb; }
-
-    .radio-group { display: flex; flex-direction: column; gap: 6px; }
-
-    .radio-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--text);
-      cursor: pointer;
-      padding: 6px 8px;
-      border-radius: 6px;
-      transition: background 0.12s;
-    }
-
-    .radio-row:hover { background: var(--surface2); }
-
-    .radio-row input[type=radio] {
-      accent-color: var(--green);
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    .pronoun-sub {
-      margin-top: 8px;
-      padding: 12px;
-      background: var(--surface2);
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    .anders-input {
-      height: 30px;
-      padding: 0 8px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      font-family: var(--font);
-      font-size: 13px;
-      color: var(--text);
-      background: #fff;
-      outline: none;
-      width: 120px;
-      max-width: 35vw;
-      margin-left: 4px;
-      transition: border-color 0.15s;
-    }
-
-    .anders-input:focus { border-color: var(--green); }
-    .anders-input::placeholder { color: #bbb; }
-
-    .preview-col { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 76px; }
-
-    .preview-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-
-    .preview-box {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow-x: auto;
-    }
-
-    .copy-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 42px;
-      padding: 0 20px;
-      background: var(--green);
-      color: #fff;
-      font-family: var(--font);
-      font-size: 14px;
-      font-weight: 700;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      width: 100%;
-    }
-
-    .copy-btn:hover { background: #009000; }
-    .copy-btn:active { transform: scale(0.98); }
-    .copy-btn.success { background: #555; }
-
-    .instructions {
-      background: #e8f8e8;
-      border: 1px solid #b8e6b8;
-      border-left: 3px solid var(--green);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      font-size: 13px;
-      color: #1a4d1a;
-      line-height: 1.7;
-    }
-
-    .instructions strong {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--green);
-      margin-bottom: 8px;
-    }
-
-    .instructions ol { padding-left: 18px; }
-    .instructions ol li { margin-bottom: 3px; }
-
-    footer {
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 12px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      margin-top: 40px;
-    }
-
-    @media (max-width: 780px) {
-      .card { padding: 20px; }
-      .preview-col { position: static; }
-      #sig-output { overflow-x: auto; max-width: calc(100vw - 64px); }
-      #sig-output table { max-width: 100%; }
-      .field input[type=text],
-      .field input[type=email],
-      .field input[type=tel] { max-width: 100%; }
-    }
+    :root { --green:#00AA00; --red:#FF0000; --pink:#FFAACC; --bg:#f5f5f3; --surface:#fff; --border:#e2e2de; --text:#1a1a1a; --muted:#888; --radius:10px; --font:'DM Sans',system-ui,sans-serif; }
+    html,body { overflow-x:hidden; width:100%; }
+    body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
+    header { padding:0 32px; height:60px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); background:#fff; }
+    .header-left { display:flex; align-items:center; gap:12px; }
+    header img { width:36px; height:36px; object-fit:contain; }
+    header h1 { font-size:15px; font-weight:700; color:var(--text); letter-spacing:-0.2px; }
+    .header-badge { font-size:11px; font-weight:500; background:var(--green); color:#fff; padding:3px 8px; border-radius:20px; }
+    main { max-width:960px; margin:32px auto; padding:0 24px; display:grid; grid-template-columns:360px 1fr; gap:20px; align-items:start; }
+    @media(max-width:780px){ main{grid-template-columns:1fr;margin:20px auto;padding:0 12px;width:100%;} header{padding:0 16px;} .card{padding:16px;} .preview-col{position:static;} #sig-output{overflow-x:auto;max-width:calc(100vw - 64px);} }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+    .card-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:20px; }
+    .field { margin-bottom:16px; }
+    .field:last-child { margin-bottom:0; }
+    .field label { display:block; font-size:13px; font-weight:500; color:var(--text); margin-bottom:6px; }
+    .field input[type=text],.field input[type=email],.field input[type=tel] { width:100%; height:38px; padding:0 12px; border:1px solid var(--border); border-radius:6px; font-family:var(--font); font-size:14px; color:var(--text); background:#fff; transition:border-color 0.15s; outline:none; }
+    .field input:focus { border-color:var(--green); }
+    .field input::placeholder { color:#bbb; }
+    .radio-group { display:flex; flex-direction:column; gap:6px; }
+    .radio-row { display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:14px; color:var(--text); cursor:pointer; padding:6px 8px; border-radius:6px; transition:background 0.12s; }
+    .radio-row:hover { background:#f5f5f3; }
+    .radio-row input[type=radio] { accent-color:var(--green); width:15px; height:15px; flex-shrink:0; cursor:pointer; }
+    .pronoun-sub { margin-top:8px; padding:12px; background:#f5f5f3; border-radius:8px; border:1px solid var(--border); }
+    .anders-input { height:30px; padding:0 8px; border:1px solid var(--border); border-radius:5px; font-family:var(--font); font-size:13px; color:var(--text); background:#fff; outline:none; width:120px; max-width:35vw; margin-left:4px; transition:border-color 0.15s; }
+    .anders-input:focus { border-color:var(--green); }
+    .anders-input::placeholder { color:#bbb; }
+    .theme-toggle { display:flex; gap:10px; }
+    .theme-btn { flex:1; height:40px; border:2px solid var(--border); border-radius:8px; font-family:var(--font); font-size:13px; font-weight:700; cursor:pointer; transition:all 0.15s; background:#fff; color:var(--text); }
+    .theme-btn.active-green { border-color:var(--green); background:#e8f8e8; color:var(--green); }
+    .theme-btn.active-pink { border-color:#cc5588; background:#fff0f6; color:#cc5588; }
+    .preview-col { display:flex; flex-direction:column; gap:14px; position:sticky; top:76px; }
+    .preview-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+    .preview-box { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .copy-btn { display:inline-flex; align-items:center; justify-content:center; height:42px; padding:0 20px; background:var(--green); color:#fff; font-family:var(--font); font-size:14px; font-weight:700; border:none; border-radius:6px; cursor:pointer; transition:background 0.15s,transform 0.1s; width:100%; }
+    .copy-btn:hover { background:#009000; }
+    .copy-btn:active { transform:scale(0.98); }
+    .copy-btn.success { background:#555; }
+    .instructions { background:#e8f8e8; border:1px solid #b8e6b8; border-left:3px solid var(--green); border-radius:var(--radius); padding:16px 20px; font-size:13px; color:#1a4d1a; line-height:1.7; }
+    .instructions strong { display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--green); margin-bottom:8px; }
+    .instructions ol { padding-left:18px; }
+    .instructions ol li { margin-bottom:3px; }
+    footer { text-align:center; padding:32px 24px; font-size:12px; color:var(--muted); border-top:1px solid var(--border); margin-top:40px; }
   </style>
 </head>
 <body>
@@ -279,7 +62,6 @@
 </header>
 
 <main>
-
   <div class="card">
     <div class="card-title">Jouw gegevens</div>
 
@@ -289,21 +71,18 @@
     </div>
 
     <div class="field">
-      <label>PROnouns <span style="font-weight:400;color:rgba(255,255,255,0.25);font-size:11px;text-transform:none;letter-spacing:0;">(optioneel)</span></label>
+      <label>PROnouns <span style="font-weight:400;color:#888;font-size:12px;">(optioneel)</span></label>
       <div class="radio-group">
         <label class="radio-row"><input type="radio" name="pronoun_toggle" value="nee" onchange="togglePronouns()" checked> nee, liever niet</label>
         <label class="radio-row"><input type="radio" name="pronoun_toggle" value="ja" onchange="togglePronouns()"> ja, namelijk</label>
       </div>
-      <div id="pronoun-options" style="display:none; margin-top:8px;">
+      <div id="pronoun-options" style="display:none;margin-top:8px;">
         <div class="pronoun-sub">
           <div class="radio-group">
             <label class="radio-row"><input type="radio" name="pronoun" value="zij/haar" onchange="update()"> zij/haar</label>
             <label class="radio-row"><input type="radio" name="pronoun" value="hij/hem" onchange="update()"> hij/hem</label>
             <label class="radio-row"><input type="radio" name="pronoun" value="die/diens" onchange="update()"> die/diens</label>
-            <label class="radio-row">
-              <input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk
-              <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="hen/hun" oninput="update()">
-            </label>
+            <label class="radio-row"><input type="radio" name="pronoun" value="anders" onchange="update()"> anders, namelijk <input type="text" class="anders-input" id="f-pronoun-anders" placeholder="hen/hun" oninput="update()"></label>
           </div>
         </div>
       </div>
@@ -321,10 +100,7 @@
         <label class="radio-row"><input type="radio" name="locatie" value="Tweede Kamer" onchange="update()"> Tweede Kamer</label>
         <label class="radio-row"><input type="radio" name="locatie" value="Eerste Kamer" onchange="update()"> Eerste Kamer</label>
         <label class="radio-row"><input type="radio" name="locatie" value="Europees Parlement" onchange="update()"> Europees Parlement</label>
-        <label class="radio-row">
-          <input type="radio" name="locatie" value="anders" onchange="update()"> anders, namelijk
-          <input type="text" class="anders-input" id="f-locatie-anders" placeholder="Gemeenteraad" oninput="update()">
-        </label>
+        <label class="radio-row"><input type="radio" name="locatie" value="anders" onchange="update()"> anders, namelijk <input type="text" class="anders-input" id="f-locatie-anders" placeholder="Gemeenteraad" oninput="update()"></label>
       </div>
     </div>
 
@@ -338,163 +114,141 @@
       <input type="email" id="f-email" placeholder="naam@progressiefnederland.nl" oninput="update()">
     </div>
 
+    <div class="field" style="margin-top:24px;padding-top:20px;border-top:1px solid #e2e2de;">
+      <label style="margin-bottom:10px;">Kleur — jij kiest!</label>
+      <div class="theme-toggle">
+        <button class="theme-btn active-green" id="btn-green" onclick="setTheme('green')">Groen</button>
+        <button class="theme-btn" id="btn-pink" onclick="setTheme('pink')">Roze</button>
+      </div>
+    </div>
   </div>
 
   <div class="preview-col">
-
     <div class="preview-label">Voorbeeld</div>
-
-    <div class="preview-box" style="padding:0; overflow:hidden;">
-      <div id="sig-output">
-        <table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:520px;background-color:#DDFFDD;">
-          <tr>
-            <td style="padding:16px 16px 12px;vertical-align:top;">
-              <p id="p-naam" style="margin:0 0 1px;font-size:20px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;">Voornaam Achternaam</p>
-              <p id="p-pronoun" style="margin:0 0 2px;font-size:11px;color:#888888;font-family:Arial,sans-serif;font-style:italic;display:none;"></p>
-              <p id="p-functie" style="margin:0 0 1px;font-size:10px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;letter-spacing:1.5px;">JOUW FUNCTIE</p>
-              <p id="p-locatie" style="margin:0 0 10px;font-size:11px;color:#999999;font-family:Arial,sans-serif;display:none;"></p>
-              <table cellpadding="0" cellspacing="0" border="0">
-                <tbody id="p-contact-rows">
-                  <tr><td style="font-size:12px;color:#888888;padding-right:10px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>
-                </tbody>
-              </table>
-            </td>
-            <td style="vertical-align:middle;padding:16px;width:136px;text-align:center;">
-              <img src="https://i.ibb.co/wrC8KZXG/image.png" width="120" height="120" style="display:block;width:120px;height:120px;object-fit:contain;" alt="Progressief Nederland">
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="background-color:#FFAACC !important;padding:10px 16px;">
-              <table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
-                <tr>
-                  <td>
-                    <table cellpadding="0" cellspacing="0" border="0"><tr>
-                      <td style="padding-right:4px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">IG</a></td>
-                      <td style="padding-right:4px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">TT</a></td>
-                      <td style="padding-right:4px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">LI</a></td>
-                      <td><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:inline-block;height:24px;line-height:24px;padding:0 7px;background-color:#ffffff !important;border:2px solid #ffffff;color:#8B003A !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;">BS</a></td>
-                    </tr></table>
-                  </td>
-                  <td style="text-align:right;">
-                    <a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:24px;line-height:24px;padding:0 9px;background-color:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <button class="copy-btn" id="copy-btn" onclick="copySignature()">
-      Handtekening kopiëren
-    </button>
-
+    <div class="preview-box"><div id="sig-output"></div></div>
+    <button class="copy-btn" id="copy-btn" onclick="copySignature()">Handtekening kopiëren</button>
     <div class="instructions">
       <strong>Hoe instellen in Outlook</strong>
       <ol>
         <li>Klik op "Handtekening kopiëren"</li>
-        <li>Open Outlook → Instellingen (tandwieltje) → Account → Handtekeningen</li>
-        <li>Klik op <strong>+ Handtekening toevoegen</strong></li>
+        <li>Open Outlook &rarr; Instellingen (tandwieltje) &rarr; Account &rarr; Handtekeningen</li>
+        <li>Klik op + Handtekening toevoegen</li>
         <li>Klik in het tekstvak en plak (Ctrl+V)</li>
         <li>Sla op en klaar!</li>
       </ol>
     </div>
-
   </div>
-
 </main>
 
-<footer>
-  Progressief Nederland &mdash; handtekening generator
-</footer>
+<footer>Progressief Nederland &mdash; handtekening generator</footer>
 
 <script>
-  function getVal(id) { return (document.getElementById(id) || {}).value || ''; }
-  function getRadio(name) {
-    var el = document.querySelector('input[name="' + name + '"]:checked');
-    return el ? el.value : '';
-  }
+var currentTheme = 'green';
 
-  function togglePronouns() {
-    var toggle = getRadio('pronoun_toggle');
-    document.getElementById('pronoun-options').style.display = toggle === 'ja' ? '' : 'none';
-    if (toggle === 'nee') {
-      document.querySelectorAll('input[name="pronoun"]').forEach(function(el) { el.checked = false; });
-    }
-    update();
-  }
-
-  function update() {
-    var naam = getVal('f-naam') || 'Voornaam Achternaam';
-    var functie = getVal('f-functie') || 'Jouw functie';
-    var tel = getVal('f-tel');
-    var email = getVal('f-email');
-
-    var pronoun = getRadio('pronoun_toggle') === 'ja' ? getRadio('pronoun') : '';
-    if (pronoun === 'anders') pronoun = getVal('f-pronoun-anders');
-
-    var functieUpper = functie.toUpperCase();
-
-    var locatie = getRadio('locatie');
-    if (locatie === 'anders') locatie = getVal('f-locatie-anders');
-
-    document.getElementById('p-naam').textContent = naam;
-    document.getElementById('p-functie').textContent = functieUpper;
-
-    var pPronoun = document.getElementById('p-pronoun');
-    pPronoun.textContent = pronoun;
-    pPronoun.style.display = pronoun ? '' : 'none';
-
-    var pLocatie = document.getElementById('p-locatie');
-    pLocatie.textContent = locatie;
-    if (locatie) {
-      pLocatie.style.display = '';
-      pLocatie.style.marginBottom = '10px';
-    } else {
-      pLocatie.style.display = 'none';
-      document.getElementById('p-functie').style.marginBottom = '10px';
-    }
-
-    var contactRows = '';
-    if (tel) contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;white-space:nowrap;">Tel</td><td style="font-size:12px;color:#444444;font-family:Arial,sans-serif;">' + escHtml(tel) + '</td></tr>';
-    if (email) contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Mail</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="mailto:' + escHtml(email) + '" style="color:#00AA00;text-decoration:none;">' + escHtml(email) + '</a></td></tr>';
-    contactRows += '<tr><td style="font-size:12px;color:#888888;padding-right:8px;font-family:Arial,sans-serif;">Web</td><td style="font-size:12px;font-family:Arial,sans-serif;"><a href="https://progressiefnederland.nl" style="color:#00AA00;text-decoration:none;">progressiefnederland.nl</a></td></tr>';
-    document.getElementById('p-contact-rows').innerHTML = contactRows;
-  }
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function copySignature() {
-    var el = document.getElementById('sig-output');
-    var range = document.createRange();
-    range.selectNodeContents(el);
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    var success = false;
-    try { success = document.execCommand('copy'); } catch(e) {}
-    sel.removeAllRanges();
-
-    var btn = document.getElementById('copy-btn');
-    if (success) {
-      btn.textContent = 'Gekopieerd!';
-      btn.classList.add('success');
-      setTimeout(function() {
-        btn.textContent = 'Handtekening kopiëren';
-        btn.classList.remove('success');
-      }, 2500);
-    } else {
-      btn.textContent = 'Selecteer handmatig en kopieer';
-      setTimeout(function() { btn.textContent = 'Handtekening kopiëren'; }, 3000);
-    }
-  }
-
+function setTheme(t) {
+  currentTheme = t;
+  document.getElementById('btn-green').className = 'theme-btn' + (t==='green' ? ' active-green' : '');
+  document.getElementById('btn-pink').className  = 'theme-btn' + (t==='pink'  ? ' active-pink'  : '');
   update();
-</script>
+}
 
+function getVal(id) { return (document.getElementById(id)||{}).value||''; }
+function getRadio(name) { var el=document.querySelector('input[name="'+name+'"]:checked'); return el?el.value:''; }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function togglePronouns() {
+  var t=getRadio('pronoun_toggle');
+  document.getElementById('pronoun-options').style.display = t==='ja' ? '' : 'none';
+  if(t==='nee') document.querySelectorAll('input[name="pronoun"]').forEach(function(e){e.checked=false;});
+  update();
+}
+
+function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
+  var isGreen = theme === 'green';
+  var bgLight = isGreen ? '#AAEE77' : '#FFAACC';
+  var bgDark  = isGreen ? '#00AA00' : '#FF77AA';
+
+  var pronounRow = pronoun ? '<p style="margin:0 0 3px;font-size:11px;color:#444444;font-style:italic;font-family:Arial,sans-serif;">'+esc(pronoun)+'</p>' : '';
+  var locatieRow = locatie ? '<p style="margin:0 0 10px;font-size:12px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;">'+esc(locatie)+'</p>' : '<p style="margin:0 0 10px;font-size:1px;">&nbsp;</p>';
+  var telRow   = tel   ? '<tr><td style="padding-bottom:1px;"><a href="tel:'+esc(tel)+'" style="font-size:13px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(tel)+'</a></td></tr>' : '';
+  var emailRow = email ? '<tr><td style="padding-bottom:1px;"><a href="mailto:'+esc(email)+'" style="font-size:13px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(email)+'</a></td></tr>' : '';
+
+  var socialCells = '';
+  if (isGreen) {
+    ['IG','TT','LI','BS'].forEach(function(label){
+      socialCells += '<td style="padding-right:3px;"><span style="display:inline-block;height:26px;line-height:26px;padding:0 7px;background:#111111;color:#ffffff;font-size:10px;font-weight:bold;font-family:Arial,sans-serif;">'+label+'</span></td>';
+    });
+  } else {
+    var icons = [
+      'https://cdn-icons-png.flaticon.com/32/2111/2111463.png',
+      'https://cdn-icons-png.flaticon.com/32/3046/3046121.png',
+      'https://cdn-icons-png.flaticon.com/32/145/145807.png',
+      'https://cdn-icons-png.flaticon.com/32/12107/12107862.png'
+    ];
+    icons.forEach(function(src){
+      socialCells += '<td style="padding-right:3px;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;background:#111111;"><img src="'+src+'" width="14" height="14" style="display:inline-block;vertical-align:middle;filter:brightness(0) invert(1);"></span></td>';
+    });
+  }
+
+  return (
+    '<!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:540pt;height:140pt;"><v:fill type="gradient" color="'+bgLight+'" color2="'+bgDark+'" angle="315" focus="0" focussize="0,0"/><v:textbox inset="0,0,0,0"><![endif]-->' +
+    '<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:540px;background:linear-gradient(135deg,'+bgLight+' 50%,'+bgDark+' 50%);">' +
+    '<tr>' +
+    '<td style="vertical-align:top;padding:18px 16px 14px 20px;">' +
+      '<p style="margin:0 0 2px;font-size:24px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;">'+esc(naam)+'</p>' +
+      pronounRow +
+      '<p style="margin:0 0 1px;font-size:13px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;">'+esc(functie)+'</p>' +
+      locatieRow +
+      '<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">'+telRow+emailRow+'</table>' +
+      '<table cellpadding="0" cellspacing="0" border="0"><tr>' +
+        socialCells +
+        '<td style="padding-right:3px;"><a href="https://progressiefnederland.nl" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;background:#111111;color:#ffffff;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">progressiefnederland.nl</a></td>' +
+        '<td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;background:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a></td>' +
+      '</tr></table>' +
+    '</td>' +
+    '<td style="vertical-align:middle;text-align:center;padding:16px 20px 16px 0;width:130px;">' +
+      '<img src="https://i.ibb.co/wrC8KZXG/image.png" width="110" height="110" style="display:block;width:110px;height:110px;object-fit:contain;" alt="Progressief Nederland">' +
+    '</td>' +
+    '</tr>' +
+    '</table>' +
+    '<!--[if mso]></v:textbox></v:rect><![endif]-->'
+  );
+}
+
+function update() {
+  var naam    = getVal('f-naam')    || 'Voornaam Achternaam';
+  var functie = getVal('f-functie') || 'Jouw functie';
+  var tel     = getVal('f-tel');
+  var email   = getVal('f-email');
+  var pronoun = getRadio('pronoun_toggle')==='ja' ? getRadio('pronoun') : '';
+  if (pronoun==='anders') pronoun = getVal('f-pronoun-anders');
+  var locatie = getRadio('locatie');
+  if (locatie==='anders') locatie = getVal('f-locatie-anders');
+  document.getElementById('sig-output').innerHTML = buildSig(naam, pronoun, functie, locatie, tel, email, currentTheme);
+}
+
+function copySignature() {
+  var el = document.getElementById('sig-output');
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  sel.removeAllRanges();
+  var btn = document.getElementById('copy-btn');
+  if (ok) {
+    btn.textContent = 'Gekopieerd!';
+    btn.classList.add('success');
+    setTimeout(function(){ btn.textContent='Handtekening kopiëren'; btn.classList.remove('success'); }, 2500);
+  } else {
+    btn.textContent = 'Selecteer handmatig en kopieer';
+    setTimeout(function(){ btn.textContent='Handtekening kopiëren'; }, 3000);
+  }
+}
+
+update();
+</script>
 </body>
 </html>
