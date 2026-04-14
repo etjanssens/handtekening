@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --green:#00AA00; --red:#FF0000; --pink:#FFAACC; --bg:#f5f5f3; --surface:#fff; --border:#e2e2de; --text:#1a1a1a; --muted:#888; --radius:10px; --font:'DM Sans',system-ui,sans-serif; }
+    :root { --green:#00AA00; --green-light:#DDFFDD; --red:#FF0000; --pink:#FFAACC; --pink-light:#FFDDEE; --bg:#f5f5f3; --surface:#fff; --border:#e2e2de; --text:#1a1a1a; --muted:#888; --radius:10px; --font:'DM Sans',system-ui,sans-serif; }
     html,body { overflow-x:hidden; width:100%; }
     body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; }
     header { padding:0 32px; height:60px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); background:#fff; }
@@ -16,7 +16,7 @@
     header h1 { font-size:15px; font-weight:700; color:var(--text); letter-spacing:-0.2px; }
     .header-badge { font-size:11px; font-weight:500; background:var(--green); color:#fff; padding:3px 8px; border-radius:20px; }
     main { max-width:960px; margin:32px auto; padding:0 24px; display:grid; grid-template-columns:360px 1fr; gap:20px; align-items:start; }
-    @media(max-width:780px){ main{grid-template-columns:1fr;margin:20px auto;padding:0 12px;width:100%;} header{padding:0 16px;} .card{padding:16px;} .preview-col{position:static;} #sig-output{overflow-x:auto;max-width:calc(100vw - 64px);} }
+    @media(max-width:780px){ main{grid-template-columns:1fr;margin:20px auto;padding:0 12px;width:100%;} header{padding:0 16px;} .card{padding:16px;} .preview-col{position:static;} #sig-output{overflow-x:auto;max-width:calc(100vw - 48px);} }
     .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
     .card-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:20px; }
     .field { margin-bottom:16px; }
@@ -30,7 +30,7 @@
     .radio-row:hover { background:#f5f5f3; }
     .radio-row input[type=radio] { accent-color:var(--green); width:15px; height:15px; flex-shrink:0; cursor:pointer; }
     .pronoun-sub { margin-top:8px; padding:12px; background:#f5f5f3; border-radius:8px; border:1px solid var(--border); }
-    .anders-input { height:30px; padding:0 8px; border:1px solid var(--border); border-radius:5px; font-family:var(--font); font-size:13px; color:var(--text); background:#fff; outline:none; width:120px; max-width:35vw; margin-left:4px; transition:border-color 0.15s; }
+    .anders-input { height:30px; padding:0 8px; border:1px solid var(--border); border-radius:5px; font-family:var(--font); font-size:13px; color:var(--text); background:#fff; outline:none; width:120px; max-width:35vw; margin-left:4px; }
     .anders-input:focus { border-color:var(--green); }
     .anders-input::placeholder { color:#bbb; }
     .theme-toggle { display:flex; gap:10px; }
@@ -40,7 +40,7 @@
     .preview-col { display:flex; flex-direction:column; gap:14px; position:sticky; top:76px; }
     .preview-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
     .preview-box { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
-    .copy-btn { display:inline-flex; align-items:center; justify-content:center; height:42px; padding:0 20px; background:var(--green); color:#fff; font-family:var(--font); font-size:14px; font-weight:700; border:none; border-radius:6px; cursor:pointer; transition:background 0.15s,transform 0.1s; width:100%; }
+    .copy-btn { display:inline-flex; align-items:center; justify-content:center; height:42px; background:var(--green); color:#fff; font-family:var(--font); font-size:14px; font-weight:700; border:none; border-radius:6px; cursor:pointer; transition:background 0.15s,transform 0.1s; width:100%; }
     .copy-btn:hover { background:#009000; }
     .copy-btn:active { transform:scale(0.98); }
     .copy-btn.success { background:#555; }
@@ -164,54 +164,65 @@ function togglePronouns() {
 }
 
 function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
-  var isGreen = theme === 'green';
-  var bgLight = isGreen ? '#AAEE77' : '#FFAACC';
-  var bgDark  = isGreen ? '#00AA00' : '#FF77AA';
+  var isGreen  = theme === 'green';
+  var bgMain   = isGreen ? '#DDFFDD' : '#FFDDEE';
+  var bgDark   = isGreen ? '#00AA00' : '#FFAACC';
+  var logoBox  = isGreen ? '#AAEEBB' : '#FFBBDD';
 
-  var pronounRow = pronoun ? '<p style="margin:0 0 3px;font-size:11px;color:#444444;font-style:italic;font-family:Arial,sans-serif;">'+esc(pronoun)+'</p>' : '';
-  var locatieRow = locatie ? '<p style="margin:0 0 10px;font-size:12px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;">'+esc(locatie)+'</p>' : '<p style="margin:0 0 10px;font-size:1px;">&nbsp;</p>';
-  var telRow   = tel   ? '<tr><td style="padding-bottom:1px;"><a href="tel:'+esc(tel)+'" style="font-size:13px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(tel)+'</a></td></tr>' : '';
-  var emailRow = email ? '<tr><td style="padding-bottom:1px;"><a href="mailto:'+esc(email)+'" style="font-size:13px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(email)+'</a></td></tr>' : '';
+  var pronounRow = pronoun
+    ? '<p style="margin:0 0 3px;font-size:12px;color:#555555;font-style:italic;font-family:Arial,sans-serif;">'+esc(pronoun)+'</p>'
+    : '';
+  var locatieRow = locatie
+    ? '<p style="margin:0 0 0;font-size:13px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;">'+esc(locatie)+'</p>'
+    : '';
+  var telRow = tel
+    ? '<tr><td style="padding-bottom:2px;"><a href="tel:'+esc(tel)+'" style="font-size:14px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(tel)+'</a></td></tr>'
+    : '';
+  var emailRow = email
+    ? '<tr><td><a href="mailto:'+esc(email)+'" style="font-size:14px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;text-decoration:underline;">'+esc(email)+'</a></td></tr>'
+    : '';
+
+  // Social icons — same for both themes now (Meeuwis uses icons in both)
+  var iconSrcs = [
+    ['https://www.instagram.com/progressiefnederland/', 'https://cdn-icons-png.flaticon.com/32/2111/2111463.png', 'Instagram'],
+    ['https://www.tiktok.com/@progressief.nederland',   'https://cdn-icons-png.flaticon.com/32/3046/3046121.png', 'TikTok'],
+    ['https://www.linkedin.com/company/progressief-nederland/', 'https://cdn-icons-png.flaticon.com/32/145/145807.png', 'LinkedIn'],
+    ['https://bsky.app/profile/progressiefned.bsky.social', 'https://cdn-icons-png.flaticon.com/32/12107/12107862.png', 'Bluesky']
+  ];
 
   var socialCells = '';
-  if (isGreen) {
-    ['IG','TT','LI','BS'].forEach(function(label){
-      socialCells += '<td style="padding-right:3px;"><span style="display:inline-block;height:26px;line-height:26px;padding:0 7px;background:#111111;color:#ffffff;font-size:10px;font-weight:bold;font-family:Arial,sans-serif;">'+label+'</span></td>';
-    });
-  } else {
-    var icons = [
-      'https://cdn-icons-png.flaticon.com/32/2111/2111463.png',
-      'https://cdn-icons-png.flaticon.com/32/3046/3046121.png',
-      'https://cdn-icons-png.flaticon.com/32/145/145807.png',
-      'https://cdn-icons-png.flaticon.com/32/12107/12107862.png'
-    ];
-    icons.forEach(function(src){
-      socialCells += '<td style="padding-right:3px;"><span style="display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;background:#111111;"><img src="'+src+'" width="14" height="14" style="display:inline-block;vertical-align:middle;filter:brightness(0) invert(1);"></span></td>';
-    });
-  }
+  iconSrcs.forEach(function(ic) {
+    socialCells += '<td style="padding-right:4px;"><a href="'+ic[0]+'" title="'+ic[2]+'" style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#111111;text-decoration:none;"><img src="'+ic[1]+'" width="16" height="16" style="display:inline-block;vertical-align:middle;filter:brightness(0) invert(1);" alt="'+ic[2]+'"></a></td>';
+  });
 
   return (
-    '<!--[if mso]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:540pt;height:140pt;"><v:fill type="gradient" color="'+bgLight+'" color2="'+bgDark+'" angle="315" focus="0" focussize="0,0"/><v:textbox inset="0,0,0,0"><![endif]-->' +
-    '<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:540px;background:linear-gradient(135deg,'+bgLight+' 50%,'+bgDark+' 50%);">' +
+    '<table cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;">' +
     '<tr>' +
-    '<td style="vertical-align:top;padding:18px 16px 14px 20px;">' +
-      '<p style="margin:0 0 2px;font-size:24px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;">'+esc(naam)+'</p>' +
+
+    // LEFT: lichte achtergrond, tekst en contactinfo
+    '<td style="background-color:'+bgMain+';vertical-align:top;padding:20px 20px 16px 20px;width:60%;">' +
+      '<p style="margin:0 0 2px;font-size:26px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;line-height:1.1;">'+esc(naam)+'</p>' +
       pronounRow +
-      '<p style="margin:0 0 1px;font-size:13px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;">'+esc(functie)+'</p>' +
+      '<p style="margin:0 0 1px;font-size:14px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;">'+esc(functie)+'</p>' +
       locatieRow +
-      '<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;">'+telRow+emailRow+'</table>' +
+      '<p style="margin:0 0 14px;font-size:1px;line-height:14px;">&nbsp;</p>' +
+      '<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">'+telRow+emailRow+'</table>' +
       '<table cellpadding="0" cellspacing="0" border="0"><tr>' +
         socialCells +
-        '<td style="padding-right:3px;"><a href="https://progressiefnederland.nl" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;background:#111111;color:#ffffff;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">progressiefnederland.nl</a></td>' +
-        '<td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:26px;line-height:26px;padding:0 8px;background:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:10px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a></td>' +
+        '<td style="padding-right:4px;"><a href="https://progressiefnederland.nl" style="display:inline-block;height:32px;line-height:32px;padding:0 10px;background:#111111;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">progressiefnederland.nl</a></td>' +
+        '<td><a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:32px;line-height:32px;padding:0 10px;background:#FF0000 !important;border:2px solid #FF0000;color:#ffffff !important;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a></td>' +
       '</tr></table>' +
     '</td>' +
-    '<td style="vertical-align:middle;text-align:center;padding:16px 20px 16px 0;width:130px;">' +
-      '<img src="https://i.ibb.co/wrC8KZXG/image.png" width="110" height="110" style="display:block;width:110px;height:110px;object-fit:contain;" alt="Progressief Nederland">' +
+
+    // RIGHT: donkere achtergrond, logo gecentreerd
+    '<td style="background-color:'+bgDark+';vertical-align:middle;text-align:center;padding:20px;width:40%;">' +
+      '<div style="display:inline-block;background-color:'+bgMain+';padding:12px;">' +
+        '<img src="https://i.ibb.co/wrC8KZXG/image.png" width="100" height="100" style="display:block;width:100px;height:100px;object-fit:contain;" alt="Progressief Nederland">' +
+      '</div>' +
     '</td>' +
+
     '</tr>' +
-    '</table>' +
-    '<!--[if mso]></v:textbox></v:rect><![endif]-->'
+    '</table>'
   );
 }
 
