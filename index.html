@@ -197,7 +197,7 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
 
   var iconCells = '';
   iconDefs.forEach(function(ic) {
-    iconCells += '<td style="padding-right:4px;"><a href="'+ic[0]+'" style="display:inline-block;width:34px;height:34px;line-height:34px;text-align:center;background-color:#111111;text-decoration:none;vertical-align:top;">'+ic[1]+'</a></td>';
+    iconCells += '<td style="padding-right:4px;"><a href="'+ic[0]+'" style="display:inline-table;width:34px;height:34px;background-color:#111111;text-decoration:none;text-align:center;vertical-align:middle;"><span style="display:table-cell;vertical-align:middle;text-align:center;">'+ic[1]+'</span></a></td>';
   });
 
   return (
@@ -214,11 +214,11 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
         '<td style="white-space:nowrap;">' +
           '<table cellpadding="0" cellspacing="0" border="0"><tr>' +
             iconCells +
-            '<td><a href="https://progressiefnederland.nl" style="display:inline-block;height:34px;line-height:34px;padding:0 10px;background-color:#111111;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">progressiefnederland.nl</a></td>' +
+            '<td style="padding-right:4px;vertical-align:middle;"><a href="https://progressiefnederland.nl" style="display:inline-block;height:34px;line-height:34px;padding:0 10px;background-color:#111111;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;vertical-align:middle;">progressiefnederland.nl</a></td>' +
           '</tr></table>' +
         '</td>' +
-        '<td style="text-align:right;padding-left:8px;white-space:nowrap;">' +
-          '<a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:34px;line-height:34px;padding:0 12px;background-color:#FF0000;border:2px solid #FF0000;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;">Meld je aan voor updates</a>' +
+        '<td style="text-align:right;padding-left:8px;white-space:nowrap;vertical-align:middle;">' +
+          '<a href="https://progressiefnederland.nl/#inschrijven" style="display:inline-block;height:34px;line-height:34px;padding:0 12px;background-color:#FF0000;border:2px solid #FF0000;color:#ffffff;font-size:11px;font-weight:bold;text-decoration:none;font-family:Arial,sans-serif;white-space:nowrap;vertical-align:middle;">Meld je aan voor updates</a>' +
         '</td>' +
       '</tr></table>' +
     '</td>' +
