@@ -177,27 +177,38 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
 
   return (
     '<table cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background-color:'+bg+';">' +
+
+    // Bovenste rij: tekst links, logo rechts
     '<tr>' +
-    '<td style="padding:20px 16px 20px 20px;vertical-align:top;">' +
+    '<td style="padding:20px 16px 12px 20px;vertical-align:top;">' +
       '<p style="margin:0 0 2px;font-size:26px;font-weight:900;color:#111111;font-family:Arial,sans-serif;letter-spacing:-0.5px;line-height:1.1;">'+esc(naam)+'</p>' +
       pronounRow +
       '<p style="margin:0 0 1px;font-size:14px;font-weight:700;color:#FF0000;font-family:Arial,sans-serif;">'+esc(functie)+'</p>' +
       locatieRow +
       spacer +
-      '<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">'+telRow+emailRow+'</table>' +
+      '<table cellpadding="0" cellspacing="0" border="0">'+telRow+emailRow+'</table>' +
+    '</td>' +
+    '<td style="padding:20px 20px 12px 0;vertical-align:middle;width:150px;text-align:right;">' +
+      '<img src="https://groenlinkspvda.nl/wp-content/uploads/2026/04/roos-handtekening.png" width="120" height="120" style="display:block;width:120px;height:120px;object-fit:contain;" alt="Progressief Nederland">' +
+    '</td>' +
+    '</tr>' +
+
+    // Onderste rij: sociale buttons links, meld je aan rechts
+    '<tr>' +
+    '<td style="padding:0 16px 20px 20px;vertical-align:bottom;">' +
       '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>' +
         '<td style="padding-right:3px;"><a href="https://www.instagram.com/progressiefnederland/" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">IG</a></td>' +
         '<td style="padding-right:3px;"><a href="https://www.tiktok.com/@progressief.nederland" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">TT</a></td>' +
         '<td style="padding-right:3px;"><a href="https://www.linkedin.com/company/progressief-nederland/" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">LI</a></td>' +
         '<td style="padding-right:3px;"><a href="https://bsky.app/profile/progressiefned.bsky.social" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">BS</a></td>' +
-        '<td style="padding-right:6px;"><a href="https://progressiefnederland.nl" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">progressiefnederland.nl</a></td>' +
-        '<td><a href="https://progressiefnederland.nl/#inschrijven" style="display:block;background-color:#FF0000;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 12px;white-space:nowrap;">Meld je aan voor updates</a></td>' +
+        '<td><a href="https://progressiefnederland.nl" style="display:block;background-color:#111111;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 10px;white-space:nowrap;">progressiefnederland.nl</a></td>' +
       '</tr></table>' +
     '</td>' +
-    '<td style="padding:16px 16px 20px 0;vertical-align:bottom;width:150px;text-align:right;">' +
-      '<img src="https://groenlinkspvda.nl/wp-content/uploads/2026/04/roos-handtekening.png" width="130" height="130" style="display:block;width:130px;height:130px;object-fit:contain;" alt="Progressief Nederland">' +
+    '<td style="padding:0 20px 20px 0;vertical-align:bottom;text-align:right;">' +
+      '<a href="https://progressiefnederland.nl/#inschrijven" style="display:block;background-color:#FF0000;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 12px;white-space:nowrap;">Meld je aan voor updates</a>' +
     '</td>' +
     '</tr>' +
+
     '</table>'
   );
 }
