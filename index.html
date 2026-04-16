@@ -108,12 +108,12 @@
 
     <div class="field">
       <label>Telefoonnummer</label>
-      <input type="tel" id="f-tel" placeholder="+31 6 12 34 56 78" oninput="update()">
+      <input type="tel" id="f-tel" placeholder="+31 6 12 34 56 78" oninput="this.value=this.value.replace(/\s/g,'');update()">
     </div>
 
     <div class="field">
       <label>E-mailadres</label>
-      <input type="email" id="f-email" placeholder="naam@progressiefnederland.nl" oninput="update()">
+      <input type="email" id="f-email" placeholder="naam@progressiefnederland.nl" oninput="this.value=this.value.replace(/\s/g,'');update()">
     </div>
 
     <div class="field" style="margin-top:24px;padding-top:20px;border-top:1px solid #e2e2de;">
@@ -167,13 +167,13 @@ function togglePronouns() {
 }
 
 function fillTest() {
-  document.getElementById('f-naam').value = 'Emiel Janssens';
-  document.getElementById('f-functie').value = 'Online redacteur';
-  document.getElementById('f-tel').value = '+31640776607';
-  document.getElementById('f-email').value = 'ejanssens@progressiefnederland.nl';
+  document.getElementById('f-naam').value = 'Rosa Progressief';
+  document.getElementById('f-functie').value = 'Campagnemedewerker';
+  document.getElementById('f-tel').value = '+31612345678';
+  document.getElementById('f-email').value = 'rosa@progressiefnederland.nl';
   document.querySelector('input[name="pronoun_toggle"][value="ja"]').checked = true;
   togglePronouns();
-  document.querySelector('input[name="pronoun"][value="hij/hem"]').checked = true;
+  document.querySelector('input[name="pronoun"][value="zij/haar"]').checked = true;
   document.querySelector('input[name="locatie"][value="Partijbureau"]').checked = true;
   update();
 }
