@@ -121,12 +121,12 @@
 
     <div class="field" style="margin-top:24px;padding-top:20px;border-top:1px solid #e2e2de;">
       <label style="margin-bottom:10px;">Kleur — jij kiest!</label>
-      <div class="theme-toggle">
+      <div class="theme-toggle" style="flex-wrap:wrap;gap:8px;">
         <button class="theme-btn active-green" id="btn-green" onclick="setTheme('green')">Groen</button>
         <button class="theme-btn" id="btn-pink" onclick="setTheme('pink')">Roze</button>
-        <button class="theme-btn" id="btn-classic" onclick="setTheme('classic')">Geschikt voor oudere systemen</button>
+        <button class="theme-btn" id="btn-classic-green" onclick="setTheme('classic-green')">Groen simpel</button>
+        <button class="theme-btn" id="btn-classic-pink" onclick="setTheme('classic-pink')">Roze simpel</button>
       </div>
-      <p class="theme-note" id="theme-note">Zonder gekleurde knoppen — werkt op alle e-mailclients inclusief Outlook Classic.</p>
     </div>
   </div>
 
@@ -155,10 +155,10 @@ var currentTheme = 'green';
 
 function setTheme(t) {
   currentTheme = t;
-  document.getElementById('btn-green').className   = 'theme-btn' + (t==='green'   ? ' active-green'   : '');
-  document.getElementById('btn-pink').className    = 'theme-btn' + (t==='pink'    ? ' active-pink'    : '');
-  document.getElementById('btn-classic').className = 'theme-btn' + (t==='classic' ? ' active-classic' : '');
-  document.getElementById('theme-note').className  = 'theme-note' + (t==='classic' ? ' visible' : '');
+  document.getElementById('btn-green').className        = 'theme-btn' + (t==='green'        ? ' active-green'   : '');
+  document.getElementById('btn-pink').className         = 'theme-btn' + (t==='pink'         ? ' active-pink'    : '');
+  document.getElementById('btn-classic-green').className = 'theme-btn' + (t==='classic-green' ? ' active-classic' : '');
+  document.getElementById('btn-classic-pink').className  = 'theme-btn' + (t==='classic-pink'  ? ' active-classic' : '');
   update();
 }
 
@@ -190,7 +190,7 @@ var K = 'display:inline-block;background-color:#111111;color:#ffffff;font-size:1
 var R = 'display:inline-block;background-color:#FF0000;color:#ffffff;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;padding:8px 12px;white-space:nowrap;line-height:1;mso-line-height-rule:exactly;';
 
 function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
-  var bg = theme === 'pink' ? '#FFDDEE' : '#DDFFDD';
+  var bg = (theme === 'pink' || theme === 'classic-pink') ? '#FFDDEE' : '#DDFFDD';
 
   var pronounRow = pronoun
     ? '<tr><td style="padding-bottom:3px;font-size:12px;color:#555555;font-style:italic;font-family:Arial,sans-serif;line-height:1.3;mso-line-height-rule:exactly;">'+esc(pronoun)+'</td></tr>'
@@ -209,9 +209,9 @@ function buildSig(naam, pronoun, functie, locatie, tel, email, theme) {
     : '';
 
   // Classic variant: geen gekleurde knoppen, gewoon tekstlinks
-  if (theme === 'classic') {
+  if (theme === 'classic-green' || theme === 'classic-pink') {
     return (
-      '<table cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background-color:#DDFFDD;">' +
+      '<table cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background-color:'+bg+';">' +
       '<tr>' +
       '<td style="padding:20px 16px 10px 20px;vertical-align:top;">' +
         '<table cellpadding="0" cellspacing="0" border="0"><tbody>' +
