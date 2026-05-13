@@ -122,10 +122,8 @@
     <div class="field" style="margin-top:24px;padding-top:20px;border-top:1px solid #e2e2de;">
       <label style="margin-bottom:10px;">Kleur — jij kiest!</label>
       <div class="theme-toggle" style="flex-wrap:wrap;gap:8px;">
-        <button class="theme-btn active-green" id="btn-green" onclick="setTheme('green')">Groen</button>
-        <button class="theme-btn" id="btn-pink" onclick="setTheme('pink')">Roze</button>
-        <button class="theme-btn" id="btn-classic-green" onclick="setTheme('classic-green')">Groen simpel</button>
-        <button class="theme-btn" id="btn-classic-pink" onclick="setTheme('classic-pink')">Roze simpel</button>
+        <button class="theme-btn active-classic" id="btn-classic-green" onclick="setTheme('classic-green')">Groen</button>
+        <button class="theme-btn" id="btn-classic-pink" onclick="setTheme('classic-pink')">Roze</button>
       </div>
     </div>
   </div>
@@ -151,12 +149,10 @@
 <footer>Progressief Nederland &mdash; handtekening generator</footer>
 
 <script>
-var currentTheme = 'green';
+var currentTheme = 'classic-green';
 
 function setTheme(t) {
   currentTheme = t;
-  document.getElementById('btn-green').className        = 'theme-btn' + (t==='green'        ? ' active-green'   : '');
-  document.getElementById('btn-pink').className         = 'theme-btn' + (t==='pink'         ? ' active-pink'    : '');
   document.getElementById('btn-classic-green').className = 'theme-btn' + (t==='classic-green' ? ' active-classic' : '');
   document.getElementById('btn-classic-pink').className  = 'theme-btn' + (t==='classic-pink'  ? ' active-classic' : '');
   update();
